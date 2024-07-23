@@ -16,8 +16,7 @@ interface Props {
 async function MainProviders({ children }: Props) {
   return (
       <>
-          <Header />
-
+      <Header />
       {children}
       <Footer />
       <ProgressBar

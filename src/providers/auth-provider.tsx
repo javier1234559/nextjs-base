@@ -5,9 +5,9 @@ import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 're
 import { createContext, useContextSelector } from 'use-context-selector'
 
 import LocalStorageKeys from '@/constants/local-storage-keys'
-import { emitter } from '@/lib/utils/emitter'
-import { isSSR } from '@/lib/utils'
-import { cleanAuth } from '@/lib/utils/auth'
+import { emitter } from '@/utils/emitter'
+import { isSSR } from '@/utils'
+import { cleanAuth } from '@/utils/auth'
 
 
 interface AuthContextValues {

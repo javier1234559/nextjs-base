@@ -8,4 +8,4 @@ const dictionaries: Record<LocaleEnum, () => Promise<LocaleKeys>> = {
 }
 
 export const getDictionary = async (locale: LocaleEnum) =>
-  dictionaries[locale]?.() ?? dictionaries.en()
+  dictionaries[locale]?.() ?? dictionaries.vi()

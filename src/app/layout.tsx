@@ -4,8 +4,8 @@ import MainProviders from '@/providers/main-provider'
 import { getDictionary } from '@/dictionaries/get-dictionary'
 import DictionaryProvider from '@/providers/dictionary'
 import { DefaultPageProps } from '@/types/common'
-import { constructMetadata } from '@/lib/utils'
-import { cn } from '@/lib/utils/cn'
+import { constructMetadata } from '@/utils'
+import { cn } from '@/utils/cn'
 
 import './globals.scss'
 
@@ -38,11 +38,11 @@ export default async function RootLayout({
           'flex min-h-screen flex-col antialiased',
         )}
       >
-        {/* <DictionaryProvider dictionary={dictionary}>
-        </DictionaryProvider> */}
+        <DictionaryProvider dictionary={dictionary}>
           <MainProviders>
           <main className="flex flex-1 flex-col">{children}</main>
           </MainProviders>
+        </DictionaryProvider>
       </body>
     </html>
   )

@@ -1,4 +1,7 @@
 import { Metadata } from 'next'
+import { cn } from '@/utils/cn';
+
+export { cn };
 
 export function isSSR() {
   return typeof window === 'undefined'

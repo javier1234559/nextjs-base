@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { LocaleEnum } from '@/types/locales'
-import { cn } from '@/lib/utils/cn'
+import { cn } from '@/utils/cn'
 
 interface Props {
   href: string

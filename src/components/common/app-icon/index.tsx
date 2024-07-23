@@ -1,23 +1,23 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
+import React, { SVGProps } from 'react'
 import isEqual from 'react-fast-compare'
 
-import { cn } from '@/lib/utils/cn'
+import { cn } from '@/utils/cn'
 
-import sx from './AppIcon.module.scss'
-
-interface AppIconProps {
+interface IAppIconProps extends SVGProps<SVGSVGElement> {
   src: string
-  className?: string
-  ['aria-label']: string
 }
 
-function AppIcon(props: AppIconProps) {
-  const { src, className = '', ...other } = props
+function AppIcon(props: IAppIconProps) {
+  const { src, className = '', viewBox, width = 16, height = width } = props
 
   return (
-    <svg className={cn('duration-300', sx.Component, className)} {...other}>
-      <use href={src} {...other} />
+    <svg
+      width={width}
+      height={height}
+      viewBox={viewBox}
+      className={cn('pointer-events-none h-full w-full duration-300', className)}
+    >
+      <use href={src} width={width} height={height} />
     </svg>
   )
 }

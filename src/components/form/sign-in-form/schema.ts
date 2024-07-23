@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 import { LocaleKeys } from '@/types/locales'
-import { generateMinLengthText, generateRequireText } from '@/lib/utils/generate-schema-text'
+import { generateMinLengthText, generateRequireText } from '@/utils/generate-schema-text'
 
 export interface ISignInForm {
   username: string
