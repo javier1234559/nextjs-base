@@ -8,9 +8,9 @@ export function isSSR() {
 }
 
 export function constructMetadata({
-  title = 'Weebuns',
-  description = 'A forum for writers to share their work and get feedback',
-  image = '/thumbnail.png',
+  title = 'Cyndi Kaszirer - Luxury Florida Real Estate | REALTOR®',
+  description = 'Cyndi Kaszirer, your trusted Florida REALTOR®. Specializing in luxury homes, waterfront properties, và exclusive communities across Florida. Expert guidance for buying and selling premium real estate.',
+  image = '/og-image.png',
   icons = '/favicon.ico',
   noIndex = false,
 }: {
@@ -23,9 +23,11 @@ export function constructMetadata({
   return {
     title,
     description,
+    authors: [{ name: 'Cyndi Kaszirer' }],
     openGraph: {
       title,
-      description,
+      description: 'Cyndi Kaszirer, your trusted Florida REALTOR®. Specializing in luxury homes, waterfront properties, and exclusive communities across Florida.',
+      type: 'website',
       images: [
         {
           url: image,
@@ -35,12 +37,22 @@ export function constructMetadata({
     twitter: {
       card: 'summary_large_image',
       title,
-      description,
+      description: 'Cyndi Kaszirer, your trusted Florida REALTOR®. Specializing in luxury homes, waterfront properties, and exclusive communities.',
       images: [image],
-      creator: '@joshtriedcoding',
     },
-    icons,
-    metadataBase: new URL('https://localhost:3000/'),
+    icons: [
+      { rel: 'icon', url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { rel: 'icon', url: '/favicon.svg', type: 'image/svg+xml' },
+      { rel: 'shortcut icon', url: '/favicon.ico' },
+      { rel: 'apple-touch-icon', url: '/apple-touch-icon.png', sizes: '180x180' },
+    ],
+    manifest: '/site.webmanifest',
+    metadataBase: new URL('https://cyndisellsflorida.com/'),
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: 'black-translucent',
+      title: 'CyndiSellsFlorida',
+    },
     ...(noIndex && {
       robots: {
         index: false,

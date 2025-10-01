@@ -1,34 +1,33 @@
 'use client'
 
-import { memo, ReactNode } from 'react'
-import isEqual from 'react-fast-compare'
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import Header from '@/components/layout/header';
+import Footer from '@/components/layout/footer';
 
-import AuthProvider from '@/providers/auth-provider'
-import { extendTheme } from '@/theme/extend-theme'
-import Header from '@/components/layout/header'
-import Footer from '@/components/layout/footer'
+const queryClient = new QueryClient();
 
-interface Props {
-  children: ReactNode
-}
-
-async function MainProviders({ children }: Props) {
+const MainProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-      <>
-      <Header />
-      {children}
-      <Footer />
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <div className="flex flex-col min-h-screen">
+          <Sonner position="top-center" />
+          <Header />
+          {children}
+          <Footer />
+        </div>
+      </TooltipProvider>
       <ProgressBar
         height="4px"
-        color={extendTheme.colors.accent.DEFAULT}
+        color="#FF6A38"
         options={{ showSpinner: false }}
         shallowRouting
       />
-      </>
-    // <AuthProvider>
-    // </AuthProvider>
-  )
-}
+    </QueryClientProvider>
+  );
+};
 
-export default memo(MainProviders, isEqual)
+export default MainProvider

@@ -1,10 +1,7 @@
 import React from 'react'
 import { Audiowide, Inter } from 'next/font/google'
-import MainProviders from '@/providers/main-provider'
-import { getDictionary } from '@/dictionaries/get-dictionary'
-import DictionaryProvider from '@/providers/dictionary'
-import { DefaultPageProps } from '@/types/common'
 import { constructMetadata } from '@/utils'
+import MainProvider from '@/providers/main-provider'
 import { cn } from '@/utils/cn'
 
 import './globals.scss'
@@ -25,12 +22,9 @@ export const metadata = constructMetadata()
 
 export default async function RootLayout({
   children,
-  params,
-}: React.PropsWithChildren<DefaultPageProps>) {
-  const dictionary = await getDictionary(params.lang)
-
+}: React.PropsWithChildren) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="light">
       <body
         className={cn(
           fontText.variable,
@@ -38,11 +32,9 @@ export default async function RootLayout({
           'flex min-h-screen flex-col antialiased',
         )}
       >
-        <DictionaryProvider dictionary={dictionary}>
-          <MainProviders>
+        <MainProvider>
           <main className="flex flex-1 flex-col">{children}</main>
-          </MainProviders>
-        </DictionaryProvider>
+        </MainProvider>
       </body>
     </html>
   )

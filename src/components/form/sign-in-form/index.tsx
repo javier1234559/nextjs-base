@@ -17,17 +17,9 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 
-import { LocaleKeys } from '@/types/locales'
+import { DEFAULT_SIGN_IN_FORM, finalSchema } from './schema'
 
-import { DEFAULT_SIGN_IN_FORM, formSchema } from './schema'
-
-interface Props {
-  dictionary: LocaleKeys
-}
-
-function SignInForm({ dictionary }: Props) {
-  const finalSchema = formSchema(dictionary)
-
+function SignInForm() {
   const form = useForm<yup.InferType<typeof finalSchema>>({
     resolver: yupResolver(finalSchema),
     defaultValues: DEFAULT_SIGN_IN_FORM,

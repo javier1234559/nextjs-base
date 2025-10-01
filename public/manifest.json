@@ -1,0 +1,16 @@
+{
+  "name": "CyndiSellsFlorida",
+  "short_name": "CyndiSellsFlorida",
+  "description": "Cyndi Kaszirer, your trusted Florida REALTOR®. Specializing in luxury homes, waterfront properties, and exclusive communities across Florida.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2c4c83",
+  "icons": [
+    {
+      "src": "/image/sologan.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

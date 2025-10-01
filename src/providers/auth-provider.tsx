@@ -5,7 +5,6 @@ import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 're
 import { createContext, useContextSelector } from 'use-context-selector'
 
 import LocalStorageKeys from '@/constants/local-storage-keys'
-import { emitter } from '@/utils/emitter'
 import { isSSR } from '@/utils'
 import { cleanAuth } from '@/utils/auth'
 
@@ -86,10 +85,7 @@ function AuthProvider({ children }: PropsWithChildren) {
         }
       }
     })()
-
-    emitter.on('FORCE_LOGOUT', logout)
     return () => {
-      emitter.off('FORCE_LOGOUT', logout)
     }
   }, [isLogin, logout, fetchUserInfo])
 

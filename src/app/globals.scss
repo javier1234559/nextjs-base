@@ -2,70 +2,190 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    /* #FFF */
+    --foreground: 0 0% 0%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    /* #FFF */
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    /* #FFF */
+    --primary: 15 100% 60%;
+    /* #FF6A38 - Brand Color */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96.5%;
+    /* #F6F6F6 */
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 96.5%;
+    /* #F6F6F6 */
+    --muted-foreground: 0 0% 32.3%;
+    --accent: 15 100% 95%;
+    /* Light version of brand color */
+    --accent-foreground: 15 100% 25%;
+    --destructive: 358.4334 74.9120% 59.7455%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90.6%;
+    /* #E7E7E7 */
+    --input: 0 0% 90.6%;
+    /* #E7E7E7 */
+    --ring: 15 100% 60%;
+    /* Brand color for focus rings */
+    --chart-1: 40.6655 100.2361% 50.9228%;
+    --chart-2: 223.7490 85.9924% 55.8092%;
+    --chart-3: 0 0% 64.5%;
+    --chart-4: 0 0% 89.6%;
+    --chart-5: 0 0% 45.6%;
+    --sidebar: 0 0% 100%;
+    /* #FFF */
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 15 100% 60%;
+    /* Brand color */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 15 100% 95%;
+    /* Light version of brand color */
+    --sidebar-accent-foreground: 15 100% 25%;
+    --sidebar-border: 0 0% 96.5%;
+    /* #F6F6F6 */
+    --sidebar-ring: 15 100% 60%;
+    /* Brand color */
+    --font-sans: Geist, sans-serif;
+    --font-serif: Georgia, serif;
+    --font-mono: Geist Mono, monospace;
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.09);
+    --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.09);
+    --shadow-sm: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 1px 2px -1px hsl(0 0% 0% / 0.18);
+    --shadow: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 1px 2px -1px hsl(0 0% 0% / 0.18);
+    --shadow-md: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 2px 4px -1px hsl(0 0% 0% / 0.18);
+    --shadow-lg: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 4px 6px -1px hsl(0 0% 0% / 0.18);
+    --shadow-xl: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 8px 10px -1px hsl(0 0% 0% / 0.18);
+    --shadow-2xl: 0px 1px 2px 0px hsl(0 0% 0% / 0.45);
+    --tracking-normal: 0em;
+    --spacing: 0.25rem;
+
+    /* Custom design tokens */
+    --luxury-gold: 43 74% 66%;
+    --luxury-navy: 221 39% 11%;
+    --warm-gray: 30 6% 47%;
+    --light-cream: 45 20% 97%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(15 100% 55%) 100%);
+    --gradient-luxury: linear-gradient(135deg, hsl(var(--luxury-gold)) 0%, hsl(43 74% 60%) 100%);
+
+    /* Shadows */
+    --shadow-luxury: 0 25px 50px -12px hsl(var(--primary) / 0.25);
+    --shadow-soft: 0 10px 25px -3px hsl(0 0% 0% / 0.1);
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 3.5%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 6.9%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 15 100% 60%;
+    /* #FF6A38 - Brand Color */
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 13.1%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 11.3%;
+    --muted-foreground: 0 0% 64.5%;
+    --accent: 15 100% 20%;
+    /* Darker version of brand color for dark mode */
+    --accent-foreground: 15 100% 90%;
+    --destructive: 359.9132 100.2494% 67.8807%;
+    --destructive-foreground: 0 0% 0%;
+    --border: 0 0% 14.1%;
+    --input: 0 0% 19.9%;
+    --ring: 15 100% 60%;
+    /* Brand color for focus rings */
+    --chart-1: 40.6655 100.2361% 50.9228%;
+    --chart-2: 218.1624 90.0354% 55.1618%;
+    --chart-3: 0 0% 45.6%;
+    --chart-4: 0 0% 32.3%;
+    --chart-5: 0 0% 89.6%;
+    --sidebar: 0 0% 6.9%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 15 100% 60%;
+    /* Brand color */
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 15 100% 20%;
+    /* Darker version of brand color for dark mode */
+    --sidebar-accent-foreground: 15 100% 90%;
+    --sidebar-border: 0 0% 19.9%;
+    --sidebar-ring: 15 100% 60%;
+    /* Brand color */
+    --font-sans: Geist, sans-serif;
+    --font-serif: Georgia, serif;
+    --font-mono: Geist Mono, monospace;
+    --radius: 0.5rem;
+    --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.09);
+    --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.09);
+    --shadow-sm: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 1px 2px -1px hsl(0 0% 0% / 0.18);
+    --shadow: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 1px 2px -1px hsl(0 0% 0% / 0.18);
+    --shadow-md: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 2px 4px -1px hsl(0 0% 0% / 0.18);
+    --shadow-lg: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 4px 6px -1px hsl(0 0% 0% / 0.18);
+    --shadow-xl: 0px 1px 2px 0px hsl(0 0% 0% / 0.18), 0px 8px 10px -1px hsl(0 0% 0% / 0.18);
+    --shadow-2xl: 0px 1px 2px 0px hsl(0 0% 0% / 0.45);
   }
 }
 
 @layer base {
+  * {
+    @apply border-border;
+  }
 
-  // body {
-  //   @apply bg-background text-foreground;
-  // }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 
-  html {
-    scroll-behavior: smooth !important;
- }
+@layer utilities {
+  .thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af transparent;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #9ca3af;
+    border-radius: 4px;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #d1d5db;
+  }
+
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* Custom Mapbox Popup Styles */
+.custom-map-popup .mapboxgl-popup-content {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.custom-map-popup .mapboxgl-popup-tip {
+  display: none !important;
+}
+
+.custom-map-popup .mapboxgl-popup-close-button {
+  display: none !important;
 }

@@ -7,13 +7,12 @@ import isEqual from 'react-fast-compare'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { LocaleEnum } from '@/types/locales'
 import { cn } from '@/utils/cn'
 
 interface Props {
   href: string
   className?: string
-  forceLanguage?: LocaleEnum
+  forceLanguage?: string
   onClick?: () => void
 }
 
