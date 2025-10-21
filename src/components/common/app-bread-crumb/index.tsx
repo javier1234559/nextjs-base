@@ -1,10 +1,10 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { memo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface AppBreadcrumbProps {
   breadcrumb: { title: string; href?: string }[];
@@ -31,7 +31,7 @@ function AppBreadcrumb({
             <div key={index} className="flex items-center">
               {item.href ? (
                 <Link
-                  to={item.href}
+                  href={item.href}
                   className="hover:text-gray-900 cursor-pointer transition-colors"
                 >
                   {item.title}
@@ -56,8 +56,6 @@ function AppBreadcrumb({
         {!isHiddenBack && (
           <Button
             onClick={handleGoBack}
-            variant="outline"
-            size="sm"
             className="flex items-center gap-1"
           >
             <ChevronLeft className="w-4 h-4" />

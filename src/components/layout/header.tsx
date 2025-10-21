@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { Mail, Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
