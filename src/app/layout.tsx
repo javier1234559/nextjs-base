@@ -1,41 +1,41 @@
-import React from 'react'
-import { Audiowide, Inter } from 'next/font/google'
-import { constructMetadata } from '@/utils'
-import MainProvider from '@/providers/main-provider'
-import { cn } from '@/utils/cn'
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 
-import './globals.scss'
+import { Header } from "@/component/layout/header";
+import { Providers } from "@/component/layout/providers";
 
-const fontText = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-text',
-})
+import "./globals.css";
 
-const fontHeading = Audiowide({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-heading',
-})
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-export const metadata = constructMetadata()
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
-export default async function RootLayout({
+export const metadata: Metadata = {
+  title: "Fullstack Automation",
+  description: "Template for fullstack automation projects with UI",
+};
+
+export default function RootLayout({
   children,
-}: React.PropsWithChildren) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" className="light">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(
-          fontText.variable,
-          fontHeading.variable,
-          'flex min-h-screen flex-col antialiased',
-        )}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
       >
-        <MainProvider>
-          <main className="flex flex-1 flex-col">{children}</main>
-        </MainProvider>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
-  )
+  );
 }
