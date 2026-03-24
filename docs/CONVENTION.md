@@ -37,14 +37,14 @@ frontend/
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
-│   ├── component/              # Shared components (singular: component)
+│   ├── components/              # Shared components (singular: components)
 │   │   ├── common/             # Global reusable (app-icon, pagination, breadcrumb)
 │   │   ├── layout/             # header, footer, sidebar, theme-provider, providers
 │   │   ├── ui/                 # shadcn primitives (button, input, form, label)
 │   │   └── custom/             # One-off (editors, animations)
 │   ├── feature/                # Feature-based modules
 │   │   └── auth/
-│   │       ├── component/      # sign-in-form (form + schema.ts)
+│   │       ├── components/      # sign-in-form (form + schema.ts)
 │   │       ├── hooks/         # useAuth, useUser, AUTH_KEY_FACTORY
 │   │       ├── service/       # authApi (login, getMe, ...)
 │   │       ├── views/         # LoginView (page-level composition)
@@ -63,7 +63,8 @@ frontend/
 
 ---
 
-## 1. `src/component/` (four subfolders)
+## 1. `src/components/` (four subfolders)
+
 
 | Folder     | Purpose                                                                | Examples                                                     |
 | ---------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
@@ -71,6 +72,7 @@ frontend/
 | **layout** | Layout and providers                                                   | `header`, `footer`, `sidebar`, `theme-provider`, `providers` |
 | **ui**     | UI primitives from a design system (shadcn)                            | `button`, `input`, `form`, `label`                           |
 | **custom** | Hard-to-categorize (editors, animations)                               | custom editor, streaming text                                |
+
 
 **UI components:** Use the **shadcn CLI** instead of writing by hand:
 
@@ -86,7 +88,7 @@ npx shadcn@latest add form
 
 ## 2. `src/feature/<feature>/` (per-feature structure)
 
-Each feature has four parts. Flow: **featureApi (service) → useFeature (hooks) → component (e.g. form) → View**. The app only imports **views**. Below are full examples for the `auth` feature so you can copy and adapt.
+Each feature has four parts. Flow: **featureApi (service) → useFeature (hooks) → components (e.g. form) → View**. The app only imports **views**. Below are full examples for the `auth` feature so you can copy and adapt.
 
 ### 2.1 `services/` — feature API
 
@@ -161,12 +163,12 @@ export const useUser = () => {
 };
 ```
 
-### 2.3 `component/` — feature UI (e.g. forms)
+### 2.3 `components/` — feature UI (e.g. forms)
 
-- Feature-specific components. Use **react-hook-form** and a **schema** file (e.g. `schema.ts` with yup/zod). Component uses feature hooks and `@/component/ui/` (Form, Input, Button).
+- Feature-specific components. Use **react-hook-form** and a **schema** file (e.g. `schema.ts` with yup/zod). components uses feature hooks and `@/components/ui/` (Form, Input, Button).
 - Naming: e.g. `sign-in-form/` with `index.tsx` and `schema.ts`.
 
-**Example — `feature/auth/component/sign-in-form/schema.ts`:**
+**Example — `feature/auth/components/sign-in-form/schema.ts`:**
 
 ```ts
 import * as yup from "yup";
@@ -190,17 +192,17 @@ export const loginSchema: yup.ObjectSchema<ILoginForm> = yup.object({
 });
 ```
 
-**Example — `feature/auth/component/sign-in-form/index.tsx` (form only, pattern):**
+**Example — `feature/auth/components/sign-in-form/index.tsx` (form only, pattern):**
 
 - `useForm<ILoginForm>({ resolver: yupResolver(loginSchema), defaultValues: DEFAULT_LOGIN_FORM })`
 - `<Form {...form}><form onSubmit={form.handleSubmit(onSubmit)}>`
-- `<FormField control={form.control} name="email" render={...} />` (and `password`) using `Input` from `@/component/ui/input`
+- `<FormField control={form.control} name="email" render={...} />` (and `password`) using `Input` from `@/components/ui/input`
 - `onSubmit(values)` → `useAuth().mutate(values, { onSuccess: () => { window.location.href = RouteNames.Home } })`
 - Show `loginMutation.isError` / `loginMutation.error?.message` and disable submit when `loginMutation.isPending`
 
 ### 2.4 `views/` — page-level composition
 
-- A **View** is a page-level component that composes the feature’s components and hooks. No route logic; only layout and composition. Export as **named export** (e.g. `LoginView`).
+- A **View** is a page-level components that composes the feature’s components and hooks. No route logic; only layout and composition. Export as **named export** (e.g. `LoginView`).
 - Naming: `<Feature>View` or `<Action>View` (e.g. `LoginView`, `DashboardView`).
 
 **Example — `feature/auth/views/LoginView.tsx`:**
@@ -208,7 +210,7 @@ export const loginSchema: yup.ObjectSchema<ILoginForm> = yup.object({
 ```tsx
 "use client";
 
-import SignInForm from "@/feature/auth/component/sign-in-form";
+import SignInForm from "@/feature/auth/components/sign-in-form";
 
 export function LoginView() {
   return (
@@ -233,7 +235,7 @@ export function LoginView() {
 
 ## 3. `src/app/` (routes)
 
-- Each route is a folder with `page.tsx` (App Router). **`page.tsx` only imports and renders a View.** No business logic or direct API/hook usage.
+- Each route is a folder with `page.tsx` (App Router). `**page.tsx` only imports and renders a View.** No business logic or direct API/hook usage.
 
 **Example:** `app/login/page.tsx` → `import { LoginView } from "@/feature/auth/views/LoginView"; return <LoginView />;`
 
@@ -243,24 +245,27 @@ Use paths from `src/constants.ts` (e.g. `RouteNames.Login`) for all links and re
 
 ## 4. Shared config, API, and root-level files
 
+
 | Path                   | Purpose                                                                                                                                                                    |
 | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`src/lib/`**         | Reusable utilities (e.g. `handleApiError.ts` — normalize API errors, throw with `response.data.message` or fallback).                                                      |
-| **`src/service/`**     | Global API client. One axios instance (`baseApi.ts`). Feature services import it; they do not create their own.                                                            |
-| **`src/config.ts`**    | Single config source. Values from env or fixed. Other files import from here instead of `process.env` directly.                                                            |
-| **`src/constants.ts`** | App-wide constants. Especially **route paths** (`RouteNames`) so changing a path here updates all links and redirects. Other constants (labels, limits) can live here too. |
+| `**src/lib/`**         | Reusable utilities (e.g. `handleApiError.ts` — normalize API errors, throw with `response.data.message` or fallback).                                                      |
+| `**src/service/**`     | Global API client. One axios instance (`baseApi.ts`). Feature services import it; they do not create their own.                                                            |
+| `**src/config.ts**`    | Single config source. Values from env or fixed. Other files import from here instead of `process.env` directly.                                                            |
+| `**src/constants.ts**` | App-wide constants. Especially **route paths** (`RouteNames`) so changing a path here updates all links and redirects. Other constants (labels, limits) can live here too. |
+
 
 ---
 
 ## 5. Path alias
 
-- Use `@/` for `src/` (e.g. `@/component/ui/button`, `@/feature/auth/views/LoginView`). Folder name is **singular**: `component`, not `components`.
+- Use `@/` for `src/` (e.g. `@/components/ui/button`, `@/feature/auth/views/LoginView`). Folder name is **singular**: `components`, not `components`.
 
 ---
 
 ## Summary
 
-- **Shared:** `component/` (common, layout, ui, custom), `lib/`, `service/`, `config.ts`, `constants.ts`, `utils/`.
-- **Feature:** `feature/<name>/` — services → hooks → component → views; app only imports views.
+- **Shared:** `components/` (common, layout, ui, custom), `lib/`, `service/`, `config.ts`, `constants.ts`, `utils/`.
+- **Feature:** `feature/<name>/` — services → hooks → components → views; app only imports views.
 - **UI:** shadcn CLI for primitives; Lucide for icons.
 - **Routes:** Only render views; use `constants.ts` for all paths and redirects.
+
